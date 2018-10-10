@@ -3,7 +3,10 @@ Install a k8s cluster on your machine
 
 ## Getting started:
 
-0) Install docker if not already installed
+0) Install docker if not already installed:
+```bash
+$ brew cask install docker
+```
 
 1) Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
