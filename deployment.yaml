@@ -1,0 +1,52 @@
+# Additional resources:
+# https://kubernetes.io/docs/concepts/overview/kubernetes-api/#api-versioning
+#
+# An object definition in Kubernetes requires an apiVersion field.
+# When Kubernetes has a release that updates what is available for you to use—changes something
+# in its API a new apiVersion is created for that object.
+# See https://matthewpalmer.net/kubernetes-app-developer/articles/kubernetes-apiversion-definition-guide.html
+# for a cheatsheat
+# https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.11/#deployment-v1-apps
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: simple-server-deployment
+
+  # Labels don't mean too much by themselves, though they are prolific in k8s.
+  # These are pretty much additional metadata you can tag and query most objects with in k8s
+  labels:
+    app: simple-server
+    tier: web
+
+# Defining deployment parameters
+# https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.11/#deploymentspec-v1-apps
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: simple-server
+      tier: web
+
+  # https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.11/#podtemplatespec-v1-core
+  template:
+    # Give labels to the pods
+    metadata:
+      labels:
+        app: simple-server
+        tier: web
+
+    # Defining the pod specification
+    # https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.11/#podspec-v1-core
+    spec:
+      containers:
+      - name: simple-server
+
+        # This is strictly for local images, this tells our node (minikube) to not fetch our
+        # image from a registry
+        imagePullPolicy: Never
+
+        # The name of the docker image we built earlier
+        image: simple-server-image
+
+        ports:
+          - containerPort: 5010
