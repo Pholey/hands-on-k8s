@@ -28,3 +28,5 @@ $ kubectl config set-cluster demo-cluster --server=127.0.0.1
 $ kubectl config set-context demo-cluster
 $ kubectl config use-context demo-cluster
 ```
+
+You should be able to run `kubectl version` with no errors now
